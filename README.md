@@ -10,10 +10,10 @@ This project helps you study Spanish vocabulary and verb conjugations from the m
 
 ## Setup
 
-Create and activate the virtual environment:
+Create and activate the virtual environment from the project folder:
 
 ```bash
-cd /home/mmilews/Projects/Arriba1
+cd /path/to/Spanish-Study-Flashcards
 python3 -m venv .venv
 . .venv/bin/activate
 ```
