@@ -1,7 +1,6 @@
-# Arriba 1 --- Spanish Vocabulary Study List 🇪🇸
+# Spanish Vocabulary Study List 🇪🇸
 
-An original A1 study list aligned with the topics covered in Arriba 1,
-using **Spanish → English → Polish**.
+An original A1 study list using **Spanish → English → Polish**.
 
 ## Unidad 1 --- Presentarse y conocerse
 

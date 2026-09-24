@@ -1,4 +1,4 @@
-# Arriba 1 --- Spanish Verb Conjugations
+# Spanish Verb Conjugations
 
 ## Subject pronouns
 

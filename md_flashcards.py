@@ -30,7 +30,7 @@ def get_chapter_name(raw_line: str, file_name: str):
         return normalize_chapter_name(line[3:])
     if line.startswith("### "):
         return normalize_chapter_name(line[4:])
-    if file_name == "arriba_1_spanish_verb_conjugations.md":
+    if file_name == "spanish_verb_conjugations.md":
         return "Verb tables"
     return "General"
 
@@ -281,7 +281,7 @@ def run_quiz(entries, chapter=None, limit=None, include_vocab=True, include_verb
 
 def main():
     parser = argparse.ArgumentParser(description="Quiz yourself on Spanish vocab and verb conjugations from markdown study files.")
-    parser.add_argument("files", nargs="*", default=["arriba_1_spanish_vocabulary.md", "arriba_1_spanish_verb_conjugations.md"], help="Markdown files to study from.")
+    parser.add_argument("files", nargs="*", default=["spanish_vocabulary.md", "spanish_verb_conjugations.md"], help="Markdown files to study from.")
     parser.add_argument("--chapter", help="Study only one chapter: for example 'Unidad 1' or 'Verb tables'.")
     parser.add_argument("--limit", type=int, help="Number of cards to quiz on.")
     parser.add_argument("--mode", choices=["all", "vocab", "verbs"], default="all", help="Which study set to use.")
