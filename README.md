@@ -38,6 +38,12 @@ Test a chapter:
 python md_flashcards.py --chapter "Unidad 1" --mode vocab
 ```
 
+Test with image cards and type the Spanish word:
+
+```bash
+python md_flashcards.py --chapter "Unidad 1" --mode vocab --image-mode --image-dir images
+```
+
 Test verbs only:
 
 ```bash

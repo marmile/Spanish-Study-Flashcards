@@ -1,4 +1,35 @@
-from md_flashcards import filter_entries, load_entries
+from pathlib import Path
+
+from md_flashcards import filter_entries, load_entries, prompt_for_vocab
+
+
+def test_prompt_for_vocab_shows_word_and_success_message(monkeypatch, capsys):
+    captured = {}
+
+    def fake_input(prompt):
+        captured["prompt"] = prompt
+        return "hello"
+
+    monkeypatch.setattr("builtins.input", fake_input)
+
+    item = {"es": "hola", "en": "hello", "pl": "cześć"}
+    result = prompt_for_vocab(item)
+
+    captured_output = capsys.readouterr().out
+    assert result is True
+    assert captured["prompt"] == "hola -> English: "
+    assert "✅ Correct! Great job!" in captured_output
+
+
+def test_prompt_for_vocab_shows_correct_answer_when_wrong(monkeypatch, capsys):
+    monkeypatch.setattr("builtins.input", lambda prompt: "goodbye")
+
+    item = {"es": "hola", "en": "hello", "pl": "cześć"}
+    result = prompt_for_vocab(item)
+
+    captured_output = capsys.readouterr().out
+    assert result is False
+    assert "❌ Incorrect. The correct answer was: hello" in captured_output
 
 
 def test_load_entries_includes_vocab_and_conjugations():
@@ -41,3 +72,31 @@ def test_load_entries_includes_otherwords_list():
 
     assert any(item["type"] == "vocab" and item["es"] == "apellido" and item["en"] == "last name" for item in entries)
     assert any(item["type"] == "vocab" and item["es"] == "aquí" and item["en"] == "here" for item in entries)
+
+
+def test_prompt_for_vocab_shows_image_and_accepts_answer(monkeypatch, capsys):
+    monkeypatch.setattr("md_flashcards.find_image_for_term", lambda *args, **kwargs: Path("images/hola.png"))
+    monkeypatch.setattr("md_flashcards.open_image_file", lambda *args, **kwargs: None)
+    monkeypatch.setattr("builtins.input", lambda prompt: "hola")
+
+    item = {"es": "hola", "en": "hello", "pl": "cześć"}
+    result = prompt_for_vocab(item, image_dir=Path("images"))
+
+    captured_output = capsys.readouterr().out
+    assert result is True
+    assert "🖼️ Showing image for: hola" in captured_output
+    assert "✅ Correct! Great job!" in captured_output
+
+
+def test_prompt_for_vocab_shows_image_when_answer_is_wrong(monkeypatch, capsys):
+    monkeypatch.setattr("md_flashcards.find_image_for_term", lambda *args, **kwargs: Path("images/hola.png"))
+    monkeypatch.setattr("md_flashcards.open_image_file", lambda *args, **kwargs: None)
+    monkeypatch.setattr("builtins.input", lambda prompt: "adios")
+
+    item = {"es": "hola", "en": "hello", "pl": "cześć"}
+    result = prompt_for_vocab(item, image_dir=Path("images"))
+
+    captured_output = capsys.readouterr().out
+    assert result is False
+    assert "🖼️ Showing image for: hola" in captured_output
+    assert "❌ Incorrect. The correct answer was: hola" in captured_output

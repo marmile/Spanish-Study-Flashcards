@@ -2,6 +2,8 @@
 import argparse
 import random
 import re
+import subprocess
+import sys
 from pathlib import Path
 
 
@@ -206,36 +208,89 @@ def list_chapters(entries):
     return chapters
 
 
-def prompt_for_vocab(item):
-    target = random.choice(["en", "pl"])
-    if target == "en":
-        prompt = f"{item['es']} -> English: "
-        answer = input(prompt).strip().lower()
-        expected = item["en"].lower()
-        if answer == expected.lower():
-            print("✅ Correct")
-            return True
-        print(f"❌ Incorrect. The answer was: {item['en']}")
+def find_image_for_term(term: str, image_dir=None):
+    if image_dir is None:
+        image_dir = Path(__file__).resolve().parent / "images"
+    if not isinstance(image_dir, Path):
+        image_dir = Path(image_dir)
+
+    normalized = normalize_text(term).lower()
+    normalized = re.sub(r"[^a-z0-9]+", "_", normalized).strip("_")
+    candidates = [
+        image_dir / f"{normalized}.png",
+        image_dir / f"{normalized}.jpg",
+        image_dir / f"{normalized}.jpeg",
+        image_dir / f"{normalized}.gif",
+        image_dir / f"{normalized}.webp",
+    ]
+    for candidate in candidates:
+        if candidate.exists():
+            return candidate
+    return None
+
+
+def open_image_file(path):
+    if not path:
+        return False
+    file_path = Path(path)
+    if not file_path.exists():
         return False
 
-    prompt = f"{item['es']} -> Polski: "
-    answer = input(prompt).strip().lower()
-    expected = item["pl"].lower()
-    if answer == expected.lower():
-        print("✅ Correct")
+    if sys.platform.startswith("darwin"):
+        subprocess.run(["open", str(file_path)], check=False)
+    elif sys.platform.startswith("win"):
+        subprocess.run(["cmd", "/c", "start", "", str(file_path)], check=False)
+    else:
+        subprocess.run(["xdg-open", str(file_path)], check=False)
+    return True
+
+
+def prompt_for_vocab(item, image_dir=None):
+    if image_dir is not None:
+        word = item.get("es", "")
+        print(f"\n🖼️ Showing image for: {word}")
+        image_path = find_image_for_term(word, image_dir)
+        if image_path is not None:
+            open_image_file(image_path)
+        else:
+            print("(No matching image found in the images folder; showing text fallback.)")
+
+        answer = input("Type the Spanish word shown in the image: ").strip().lower()
+        expected = word.lower()
+        if answer == expected:
+            print("✅ Correct! Great job!")
+            return True
+        print(f"❌ Incorrect. The correct answer was: {word}")
+        return False
+
+    if item.get("en"):
+        label = "English"
+        expected = item["en"]
+    elif item.get("pl"):
+        label = "Polski"
+        expected = item["pl"]
+    else:
+        return False
+
+    print(f"\nCard: {item['es']}")
+    answer = input(f"{item['es']} -> {label}: ").strip().lower()
+    expected_text = expected.lower()
+    if answer == expected_text:
+        print("✅ Correct! Great job!")
         return True
-    print(f"❌ Incorrect. The answer was: {item['pl']}")
+
+    print(f"❌ Incorrect. The correct answer was: {expected}")
     return False
 
 
 def prompt_for_verb(item):
-    prompt = f"{item['verb']} ({item['person']}) -> "
-    answer = input(prompt).strip().lower()
+    print(f"\nCard: {item['verb']} ({item['person']})")
+    answer = input(f"{item['verb']} ({item['person']}) -> ").strip().lower()
     expected = item["form"].lower()
     if answer == expected:
-        print("✅ Correct")
+        print("✅ Correct! Great job!")
         return True
-    print(f"❌ Incorrect. The answer was: {item['form']}")
+    print(f"❌ Incorrect. The correct answer was: {item['form']}")
     return False
 
 
@@ -257,7 +312,7 @@ def run_learn(entries, chapter=None, include_vocab=True, include_verbs=True):
         input("Press Enter to continue... ")
 
 
-def run_quiz(entries, chapter=None, limit=None, include_vocab=True, include_verbs=True):
+def run_quiz(entries, chapter=None, limit=None, include_vocab=True, include_verbs=True, image_mode=False, image_dir=None):
     filtered = filter_entries(entries, chapter=chapter, include_vocab=include_vocab, include_verbs=include_verbs)
     if not filtered:
         raise SystemExit("No matching entries for the selected chapter and mode.")
@@ -272,7 +327,7 @@ def run_quiz(entries, chapter=None, limit=None, include_vocab=True, include_verb
     for item in filtered:
         total += 1
         if item["type"] == "vocab":
-            score += int(prompt_for_vocab(item))
+            score += int(prompt_for_vocab(item, image_dir=image_dir if image_mode else None))
         else:
             score += int(prompt_for_verb(item))
 
@@ -286,6 +341,8 @@ def main():
     parser.add_argument("--limit", type=int, help="Number of cards to quiz on.")
     parser.add_argument("--mode", choices=["all", "vocab", "verbs"], default="all", help="Which study set to use.")
     parser.add_argument("--learn", action="store_true", help="Show answers directly instead of testing yourself.")
+    parser.add_argument("--image-mode", action="store_true", help="Show an image for each vocab card and type the Spanish word.")
+    parser.add_argument("--image-dir", default="images", help="Folder containing matching image files for vocab cards.")
     parser.add_argument("--list-chapters", action="store_true", help="Print the available chapter names and exit.")
     args = parser.parse_args()
 
@@ -301,7 +358,15 @@ def main():
     if args.learn:
         run_learn(entries, chapter=args.chapter, include_vocab=include_vocab, include_verbs=include_verbs)
     else:
-        run_quiz(entries, chapter=args.chapter, limit=args.limit, include_vocab=include_vocab, include_verbs=include_verbs)
+        run_quiz(
+            entries,
+            chapter=args.chapter,
+            limit=args.limit,
+            include_vocab=include_vocab,
+            include_verbs=include_verbs,
+            image_mode=args.image_mode,
+            image_dir=Path(args.image_dir),
+        )
 
 
 if __name__ == "__main__":
