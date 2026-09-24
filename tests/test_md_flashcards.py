@@ -1,6 +1,16 @@
 from pathlib import Path
 
-from md_flashcards import filter_entries, load_entries, prompt_for_vocab
+from md_flashcards import filter_entries, find_image_for_term, load_entries, open_image_file, prompt_for_vocab
+
+
+def test_find_image_for_term_matches_accented_phrase(tmp_path):
+    image_dir = tmp_path / "images"
+    image_dir.mkdir()
+    image_file = image_dir / "que_idiomas_hablas.png"
+    image_file.write_bytes(b"fake")
+
+    found = find_image_for_term("¿Qué idiomas hablas?", image_dir)
+    assert found == image_file
 
 
 def test_prompt_for_vocab_shows_word_and_success_message(monkeypatch, capsys):
@@ -72,6 +82,18 @@ def test_load_entries_includes_otherwords_list():
 
     assert any(item["type"] == "vocab" and item["es"] == "apellido" and item["en"] == "last name" for item in entries)
     assert any(item["type"] == "vocab" and item["es"] == "aquí" and item["en"] == "here" for item in entries)
+
+
+def test_open_image_file_handles_viewer_failure_gracefully(monkeypatch, tmp_path):
+    image_file = tmp_path / "test_viewer_failure.png"
+    image_file.write_bytes(b"fake")
+
+    def fake_run(*args, **kwargs):
+        return type("Completed", (), {"returncode": 1})()
+
+    monkeypatch.setattr("md_flashcards.subprocess.run", fake_run)
+
+    assert open_image_file(image_file) is False
 
 
 def test_prompt_for_vocab_shows_image_and_accepts_answer(monkeypatch, capsys):

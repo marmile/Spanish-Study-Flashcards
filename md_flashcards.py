@@ -4,6 +4,7 @@ import random
 import re
 import subprocess
 import sys
+import unicodedata
 from pathlib import Path
 
 
@@ -214,15 +215,21 @@ def find_image_for_term(term: str, image_dir=None):
     if not isinstance(image_dir, Path):
         image_dir = Path(image_dir)
 
-    normalized = normalize_text(term).lower()
-    normalized = re.sub(r"[^a-z0-9]+", "_", normalized).strip("_")
-    candidates = [
-        image_dir / f"{normalized}.png",
-        image_dir / f"{normalized}.jpg",
-        image_dir / f"{normalized}.jpeg",
-        image_dir / f"{normalized}.gif",
-        image_dir / f"{normalized}.webp",
-    ]
+    cleaned = normalize_text(term).lower()
+    cleaned = unicodedata.normalize("NFKD", cleaned)
+    cleaned = "".join(ch for ch in cleaned if not unicodedata.combining(ch))
+    cleaned = re.sub(r"[^a-z0-9]+", "_", cleaned).strip("_")
+
+    candidates = []
+    if cleaned:
+        candidates.extend([
+            image_dir / f"{cleaned}.png",
+            image_dir / f"{cleaned}.jpg",
+            image_dir / f"{cleaned}.jpeg",
+            image_dir / f"{cleaned}.gif",
+            image_dir / f"{cleaned}.webp",
+        ])
+
     for candidate in candidates:
         if candidate.exists():
             return candidate
@@ -236,13 +243,17 @@ def open_image_file(path):
     if not file_path.exists():
         return False
 
-    if sys.platform.startswith("darwin"):
-        subprocess.run(["open", str(file_path)], check=False)
-    elif sys.platform.startswith("win"):
-        subprocess.run(["cmd", "/c", "start", "", str(file_path)], check=False)
-    else:
-        subprocess.run(["xdg-open", str(file_path)], check=False)
-    return True
+    try:
+        if sys.platform.startswith("darwin"):
+            completed = subprocess.run(["open", str(file_path)], check=False)
+        elif sys.platform.startswith("win"):
+            completed = subprocess.run(["cmd", "/c", "start", "", str(file_path)], check=False)
+        else:
+            completed = subprocess.run(["xdg-open", str(file_path)], check=False)
+    except OSError:
+        return False
+
+    return completed.returncode == 0
 
 
 def prompt_for_vocab(item, image_dir=None):
