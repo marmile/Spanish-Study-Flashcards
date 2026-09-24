@@ -1,4 +1,4 @@
-# Arriba 1 Spanish Study Tool
+# Spanish Study Tool
 
 This project helps you study Spanish vocabulary and verb conjugations from the markdown files in this folder.
 
