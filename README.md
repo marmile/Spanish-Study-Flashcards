@@ -61,3 +61,4 @@ python md_flashcards.py --chapter "Unidad 2" --limit 20
 - The tool reads from the markdown files automatically.
 - You can combine the chapter filter with `--mode vocab`, `--mode verbs`, or `--mode all`.
 - `otherwords.md` is included as an additional study list.
+- TODO: replace the generated placeholder images in the `images/` folder with real photos or better artwork for each word.
