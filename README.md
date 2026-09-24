@@ -4,8 +4,8 @@ This project helps you study Spanish vocabulary and verb conjugations from the m
 
 ## Included files
 
-- `arriba_1_spanish_vocabulary.md`
-- `arriba_1_spanish_verb_conjugations.md`
+- `spanish_vocabulary.md`
+- `spanish_verb_conjugations.md`
 - `otherwords.md`
 
 ## Setup

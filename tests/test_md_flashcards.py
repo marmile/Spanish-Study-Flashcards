@@ -3,8 +3,8 @@ from md_flashcards import filter_entries, load_entries
 
 def test_load_entries_includes_vocab_and_conjugations():
     entries = load_entries([
-        "arriba_1_spanish_vocabulary.md",
-        "arriba_1_spanish_verb_conjugations.md",
+        "spanish_vocabulary.md",
+        "spanish_verb_conjugations.md",
     ])
 
     assert any(item["type"] == "vocab" and item["es"] == "hola" and item["en"] == "hello" for item in entries)
@@ -18,7 +18,7 @@ def test_load_entries_includes_vocab_and_conjugations():
 
 
 def test_chapter_filter_keeps_unit_1_vocab_only():
-    entries = load_entries(["arriba_1_spanish_vocabulary.md"])
+    entries = load_entries(["spanish_vocabulary.md"])
     unit_1_entries = filter_entries(entries, chapter="Unidad 1", include_vocab=True, include_verbs=False)
 
     assert unit_1_entries
@@ -28,7 +28,7 @@ def test_chapter_filter_keeps_unit_1_vocab_only():
 
 
 def test_chapter_filter_handles_verb_chapter_name():
-    entries = load_entries(["arriba_1_spanish_verb_conjugations.md"])
+    entries = load_entries(["spanish_verb_conjugations.md"])
     verbs = filter_entries(entries, chapter="Verb tables", include_vocab=False, include_verbs=True)
 
     assert verbs

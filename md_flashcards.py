@@ -5,8 +5,8 @@ import re
 from pathlib import Path
 
 
-VOCAB_FILE_NAMES = {"arriba_1_spanish_vocabulary.md"}
-VERB_FILE_NAMES = {"arriba_1_spanish_verb_conjugations.md"}
+VOCAB_FILE_NAMES = {"spanish_vocabulary.md"}
+VERB_FILE_NAMES = {"spanish_verb_conjugations.md"}
 OTHER_WORDS_FILE_NAMES = {"otherwords.md"}
 CHAPTER_PREFIXES = {"## Unidad ", "### "}
 
