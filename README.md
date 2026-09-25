@@ -2,6 +2,8 @@
 
 A terminal flashcard tool for studying Spanish (A1) vocabulary and verb conjugations from the markdown files in this folder. Words can be shown as text, emoji, ASCII art or real photos, with English and Polish meanings.
 
+**Design idea:** keep it simple and stay in the terminal as long as possible. The word lists are plain markdown files, the tool is a single Python script with Pillow as its only dependency, and even photos are drawn in the terminal (`--display picture`). Opening a browser tab (`--display window`) is an optional extra, not a requirement.
+
 ## Quick start
 
 ```bash
