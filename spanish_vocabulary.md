@@ -542,6 +542,133 @@ An original A1 study list using **Spanish → English → Polish**.
   Quiero...               I want...              Chcę...
   La cuenta, por favor.   The bill, please.      Rachunek, proszę.
 
+## Unidad 13 --- Viajes, el tiempo y la salud
+
+### Travel & transport
+
+  Español               English                Polski
+  --------------------- ---------------------- -----------------------
+  el viaje              trip / journey         podróż
+  las vacaciones        holidays               wakacje / urlop
+  el billete            ticket                 bilet
+  el pasaporte          passport               paszport
+  la maleta             suitcase               walizka
+  el equipaje           luggage                bagaż
+  el tren               train                  pociąg
+  el autobús            bus                    autobus
+  el metro              underground / metro    metro
+  el coche              car                    samochód
+  la bicicleta          bicycle                rower
+  la moto               motorbike              motocykl
+  el barco              boat / ship            statek / łódź
+  el taxi               taxi                   taksówka
+  el andén              platform               peron
+  la parada de autobús  bus stop               przystanek autobusowy
+  el turista            tourist                turysta
+  la reserva            booking / reservation  rezerwacja
+  de ida y vuelta       return (ticket)        w obie strony
+  reservar              to book                rezerwować
+  alojarse              to stay (at a hotel)   zatrzymać się / nocować
+  hacer la maleta       to pack                pakować się
+  esperar               to wait                czekać
+  perder                to miss / lose         spóźnić się na / zgubić
+  subir                 to get on / go up      wsiadać / wchodzić
+  el vuelo              flight                 lot
+  bajar                 to get off / go down   wysiadać / schodzić
+  el camping            campsite               kemping
+
+### Weather & seasons
+
+  Español            English                   Polski
+  ------------------ ------------------------- -------------------
+  el tiempo          weather                   pogoda
+  ¿Qué tiempo hace?  What's the weather like?  Jaka jest pogoda?
+  hace sol           it's sunny                jest słonecznie
+  hace calor         it's hot                  jest gorąco
+  hace frío          it's cold                 jest zimno
+  hace viento        it's windy                wieje wiatr
+  hace buen tiempo   the weather is nice       jest ładna pogoda
+  hace mal tiempo    the weather is bad        jest brzydka pogoda
+  llueve             it's raining              pada deszcz
+  nieva              it's snowing              pada śnieg
+  está nublado       it's cloudy               jest pochmurno
+  la lluvia          rain                      deszcz
+  la nieve           snow                      śnieg
+  el sol             sun                       słońce
+  la nube            cloud                     chmura
+  el viento          wind                      wiatr
+  la tormenta        storm                     burza
+  la temperatura     temperature               temperatura
+  la primavera       spring                    wiosna
+  el verano          summer                    lato
+  el otoño           autumn                    jesień
+  el invierno        winter                    zima
+
+### Months
+
+  Español     English    Polski
+  ----------- ---------- -----------
+  enero       January    styczeń
+  febrero     February   luty
+  marzo       March      marzec
+  abril       April      kwiecień
+  mayo        May        maj
+  junio       June       czerwiec
+  julio       July       lipiec
+  agosto      August     sierpień
+  septiembre  September  wrzesień
+  octubre     October    październik
+  noviembre   November   listopad
+  diciembre   December   grudzień
+
+### The body
+
+  Español      English   Polski
+  ------------ --------- ----------------
+  el cuerpo    body      ciało
+  la cabeza    head      głowa
+  la cara      face      twarz
+  la boca      mouth     usta
+  la nariz     nose      nos
+  la oreja     ear       ucho
+  el diente    tooth     ząb
+  el cuello    neck      szyja
+  el hombro    shoulder  ramię (bark)
+  el brazo     arm       ręka (ramię)
+  la mano      hand      dłoń / ręka
+  el dedo      finger    palec
+  la espalda   back      plecy
+  el estómago  stomach   żołądek / brzuch
+  la pierna    leg       noga
+  la rodilla   knee      kolano
+  el pie       foot      stopa
+
+### Health
+
+  Español              English             Polski
+  -------------------- ------------------- ---------------------------
+  la salud             health              zdrowie
+  estar enfermo        to be ill           być chorym
+  estar cansado        to be tired         być zmęczonym
+  el dolor             pain                ból
+  doler                to hurt             boleć
+  Me duele la cabeza.  I have a headache.  Boli mnie głowa.
+  ¿Qué te pasa?        What's wrong?       Co ci jest?
+  el resfriado         cold (illness)      przeziębienie
+  la gripe             flu                 grypa
+  la tos               cough               kaszel
+  la fiebre            fever               gorączka
+  la garganta          throat              gardło
+  el medicamento       medicine            lek
+  la pastilla          pill                tabletka
+  la receta            prescription        recepta
+  la cita              appointment         wizyta / umówione spotkanie
+  el/la dentista       dentist             dentysta / dentystka
+  el centro de salud   health centre       przychodnia
+  sano                 healthy             zdrowy
+  descansar            to rest             odpoczywać
+  ¡Que te mejores!     Get well soon!      Zdrowiej szybko!
+
 ## Essential A1 verbs
 
   Español       English            Polski
